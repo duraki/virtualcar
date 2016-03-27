@@ -35,7 +35,7 @@
 
 #define  VIRCAR const
 
-int print_head()
+void print_head()
 {
 	printf("%s", "Welcome to vir(tual) car.\n");
 	printf("%s", "~\n");
@@ -47,9 +47,9 @@ int print_head()
 	printf("%s", "https://github.com/dn5/vircar\n\n");
 }
 
-int create_car() 
+void create_car() 
 {
-	VIRCAR vircar = "vircar"; /* Use the const in future */
+	const char *vircar = "vircar"; /* Use the const in future */
 
 	/**
 	 * Create a car, because no car is bad car.
@@ -132,7 +132,7 @@ int main(int argc, char *argv[])
 			int len;
 			len = frame.can_dlc;
 					
-			printf("%d", strlen(current)); 				/* Size of the data */
+			printf("%zu", strlen(current)); 				/* Size of the data */
 
 			// aka car_do_something();
 			if (strcmp(current, "ENON") == 0) {
