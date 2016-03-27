@@ -24,6 +24,7 @@ To clone the repo and compile it from source:
 	$ chmod 777 vircar
 
 To run vircar use or appropriate sudo (need to create a car)	
+
 	$ ./vircar
 	Welcome to vir(tual) car.
 	~
@@ -36,11 +37,12 @@ To run vircar use or appropriate sudo (need to create a car)
 
 	# waiting for operation
 
-To exit vircar use Ctrl+C.  
-To kill a car and remove protocol use:
+To **exit** vircar use Ctrl+C.  
+To **kill** a car and remove protocol use:
+	
 	$ ./vircar k
-	 ka-boom, pfw, aaa, ts
-	 *car exploded*
+	ka-boom, pfw, aaa, ts
+	*car exploded*
 
 ## outro
 If you are interested in car hacking, write me on [twitter](https://twitter.com/dn5__). Any additional options and ECU operations shall me transfered to pull requests. Please, keep the code and project with clean lines of code. Ugly code won't be commited to master. I would like to thank my family and supporters who have been there when I need them and who could continue to live with me without killing me :-).  
