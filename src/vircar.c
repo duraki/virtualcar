@@ -5,15 +5,24 @@
  * @package     dn5/vircar@github
  * @website     http://dn5.ljuska.org
  *
- * This is a car. Yes, a virtual car connected on your 
- * machine. Please, do not drive fast, you may want to 
- * consult with your car dealer first.
+ * Vir(tual)Car is real car engine written in C to help newbie 
+ * and advanced users learn more about internal ways on how cars 
+ * and vehicles communicate over CAN Bus protocol. This project 
+ * represents a central unit for CAN, and as such supports the 
+ * instructions and commands sent to the ECU and back.
  *
- * The future will bring:
- * 	- Revs
- * 	- Top speed / Current speed
- * 	- Error debug
- * 	- Chip & tuning
+ * There are several paid examples for this, so I've made vircar
+ * for an open-source community. Built on native kernel library 
+ * using only Linux SocketCAN drivers/module, vircar will enable 
+ * you the usage on almost all up to date kernels (2008 and above 
+ * if I recall correctly.
+ *
+ * The official reason why I wrote this is because I wanted to 
+ * experiment and learn more about cars and vehicle hacking including
+ * but not limited to hardware and CAN protocol. You may as well read
+ * a blog post about using, abusing and hacking vircar as an example
+ * how similar vircar actually is to the real car.
+ *
  */
 
 #include <stdio.h>
