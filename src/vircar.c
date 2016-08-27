@@ -1,9 +1,9 @@
 /**
  * 
- * @author		Halis Duraki <halis_duraki@outlook.com>
- * @project		vircar.c (Virtual car)
- * @package 	dn5/vircar@github
- * @website		http://dn5.ljuska.org
+ * @author  	Halis Duraki <halis_duraki@outlook.com>
+ * @project 	vircar.c (Virtual car)
+ * @package     dn5/vircar@github
+ * @website     http://dn5.ljuska.org
  *
  * This is a car. Yes, a virtual car connected on your 
  * machine. Please, do not drive fast, you may want to 
