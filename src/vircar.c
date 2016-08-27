@@ -46,14 +46,14 @@
 
 void print_head()
 {
-	printf("%s", "Welcome to vir(tual) car.\n");
-	printf("%s", "~\n");
-	printf("%s", "vircar is an open-source project\n");
-	printf("%s", "coded by Halis Duraki as a solo \n");
-	printf("%s", "paper on vehicle hacking and \n");
-	printf("%s", "reverse engineering.\n");
-	printf("%s", "=========================================\n");
-	printf("%s", "https://github.com/dn5/vircar\n\n");
+    printf("%s", "Welcome to vir(tual) car. A simple, yet flexible\n"
+                 "car engine written in C. This project can help you\n"
+                 "understand how various vehicles and cars communicate\n"
+                 "with CAN Bus and ECU. This project is open-source!\n");
+
+	printf("%s", "===================================================\n");
+	printf("%s", "https://github.com/dn5/vircar\n");
+    printf("%s", "Halis Duraki / @dn5 / <duraki@null.net>\n\n");
 }
 
 void create_car() 
