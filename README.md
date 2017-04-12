@@ -1,14 +1,42 @@
-## vircar
-**vircar** (**vir**-tual-**car**) is a car written in C that opens a CAN Bus network on your computer and register operations that should be sent to the ECU, just like a real car. This software is licensed under GNU General Public V3 license. Please, keep the software open source and contribute to the project if you want. It works over CAN interface that linux kernel have in itself. I wrote this software for educational and pro-bono purpose only.  
+*Notice*: This project is original version of **vircar**. The change of name occured on 
+12/04/17.
+
+## virtualcar 
+**virtualcar** (**vir**-tual-**car**) is a CAN-based wrapper written in C, that acts as 
+a virtual car. The core is listening to the virtual CAN device and parse, analyze and 
+transmit signal from nodes to nodes, or in other way manipulate with request.
+  
+This software is licensed under GNU General Public V3 license. Please, keep the software 
+open source and contribute to the project if you want.
+  
+The project is developed on top of SocketCAN module and therefore requires Linux based 
+system. I am currently rewriting the SocketCAN module for MacOS and you may fork the 
+repository from [dn5/socketcanx](https://github.com/dn5/socketcanx).
   
 ## a car? really?
-Yes! A fully, functional car. Well, not really no. It does represent a car but in a limited spirit and form. I was writing a post about [cyber-attacks](http://dn5.ljuska.org/napadi-na-auto-sistem-1.html) on a vehicle systems and [another one](http://dn5.ljuska.org/cyber-attacks-on-vehicles-2.html) that show **vircar** in action, and didn't have necessary (hardware) equipment to test security, so I wrote a script to let me test and experiment with a fuzzing technique on a virtual car. You may want to implement other functions and options which you can do over **car.c** file.  
+Yes! A fully, functional car.  
+Well, not really no. It does represent a car/vehicle but in a limited spirit and form. I was 
+writing a post about [cyber-attacks](http://dn5.ljuska.org/napadi-na-auto-sistem-1.html) 
+on a vehicle systems and [another one](http://dn5.ljuska.org/cyber-attacks-on-vehicles-2.html) 
+that show **virtualcar** in action, and didn't have necessary (hardware) equipment to test 
+the techniques, so I wrote this to let myself experiment a bit.   
   
+So a few months passed, and I talked about this little code on a BalCCon 2k17 where I 
+offered a small introduction to these cyber-attacks, plus you could buy me a drink and 
+I'd tell you some secrets. So I renamed this project and I'll try to develop some nodes 
+as per request in Issues board. Meanwhile, I'd appreciate pull requests that make sense.
+   
 ## functionality
-Currently, **vircar** offers several operations that are registered and reserved on ECU. These are: **ENON** (Engine on), **ENOF** (Engine off), **LOCK** (Lock doors), **DOCK** (Unlock doors), and **KILL** (destroy the car, remove virtual bus). As I said, you may want to implement other functions in the car, so be free to tune it however you like it. Also, if you've made a NOS or something cool make a pull request, I would be glad to see contributors to the project.  
+Currently, **virtualcar** offers several operations that are registered and reserved on CAN. 
+These are: **ENON** (Engine on), **ENOF** (Engine off), **LOCK** (Lock doors), 
+**DOCK** (Unlock doors), and **KILL** (destroy the car, remove virtual bus). As I said, 
+you may want to implement other functions in the car, so be free to tune it however you like it. 
+Also, if you've made a NOS or something cool make a pull request, I would be glad to 
+see contributors to the project.  
   
 ## requirements
-I love to write pure native scripts. The only requirement for now is that you are running under **GNU Linux** and have **can-utils** installed on your system.  
+I love to write pure native scripts. The only requirement for now is that you are running 
+under **GNU Linux** and have **can-utils** installed on your system.  
 
 * gcc
 * linux kernel (can.h)
@@ -18,31 +46,30 @@ I love to write pure native scripts. The only requirement for now is that you ar
 
 To clone the repo and compile it from source: 
 
-	$ git clone https://github.com/dn5/vircar.git
-	$ cd vircar
+	$ git clone https://github.com/dn5/virtualcar.git
+	$ cd virtualcar 
 	$ make
-	$ chmod 777 vircar
+	$ chmod 777 virtualcar 
 
-To run vircar use sudo (entierly for CAN bus device linking)	
+To run **virtualcar** use sudo (entirely for CAN bus device linking)	
 
-	$ sudo ./vircar
+	$ sudo ./virtualcar
 	Welcome to vir(tual) car.
 	~
-	vircar is an open-source project
-	coded by Halis Duraki as a solo 
-	paper on vehicle hacking and 
-	reverse engineering.
 	=========================================
-	https://github.com/dn5/vircar
+	https://github.com/dn5/virtualcar
 
 	# waiting for operation
 
 To **exit** vircar use Ctrl+C.  
 To **kill** a car and remove protocol use:
 	
-	$ ./vircar k
+	$ ./virtualcar k
 	ka-boom, pfw, aaa, ts
 	*car exploded*
 
 ## outro
-If you are interested in car hacking, write me on [twitter](https://twitter.com/dn5__). Any additional options and ECU operations should be applied to pull requests on this official repository. Please, keep the code and project with clean lines of code. Ugly code won't be commited to master. I would like to thank my family and supporters who have been there when I need them and who could continue to live with me without killing me :-).  
+If you are interested in car hacking, write me on [twitter](https://twitter.com/dn5__). 
+Any additional options and CAN nodes should be accepted if they follow RTR or Accept/Desctruct
+operation. Please, keep the code and project with clean lines of code. 
+  
