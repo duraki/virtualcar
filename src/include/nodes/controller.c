@@ -29,46 +29,54 @@
  *  
  */
 
-#define  ENON = "454E4F4E" 		/* Start a car engine 	*/
-#define  ENOF = "454E4F46"		/* Stop the car engine 	*/
-#define  LOCK = "4C4F434B"		/* Lock the doors 		*/
-#define  DOCK = "444F434B"		/* Unlock the doors 	*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <net/if.h>
+#include <netinet/in.h>
+
+#include <linux/if_packet.h>
+#include <linux/if_ether.h>
+#include <linux/can.h>
+
+#include "../logger.h"
+
+#include "nodes.h"
+
+/** nodes header */
+#include "door.h"
  
-#define  KILL = "4B494C4C"		/* Don't do this, the car will explode */
+void can_accept_signal(struct can_frame *frame)
+{
+	uint8_t i;
+	Log("New frame recieved ...");
 
-int car_do_something(char *what) {
-	printf(" %s", what);
+	if (frame->can_id == NODE_SIGNAL_DOOR_MODE) 
+		node_door_mode();	
+
+	if (frame->can_id == NODE_SIGNAL_DOOR_UNLC)
+		node_door_unlock();
+
+	if (frame->can_id == NODE_SIGNAL_DOOR_LOCK)
+		node_door_lock();
+
+	if (frame->can_id == NODE_SIGNAL_DOOR_WNDW)
+		node_door_mirror();
+
+	if (frame->can_id == NODE_SIGNAL_DOOR_MIRR)
+		node_door_mirror();
+
+	printf("\n");
 }
 
-int car_start_engine() { 		/* ENON */
-	car_do_something("vircar engine is turned on.");
+void can_accept_signal_rtr(struct can_frame *frame)
+{
+	Log("New RTR frame recieved ...");
 
-	return 1;
-}
 
-int car_stop_engine() { 		/* ENOF */
-	car_do_something("vircar engine is turned off.");
-
-	return 1;
-}
-
-int car_lock_doors() { 			/* LOCK */
-	car_do_something("vircar doors are locked.");
-
-	return 1;
-}
-
-int car_unlock_doors() { 		/* DOCK */
-	car_do_something("vircar ulocked the doors.");
-
-	return 1;
-}
-
-int car_kill() {				/* KILL */
-	car_do_something("ka-boom, pfw, aaa, ts\n");
-	car_do_something("*car exploded*\n");
-	/* I'll be back ... */
-
-	system("sudo ip link delete vircar");
-	exit(1);
 }

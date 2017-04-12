@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"/Users/duraki/dev/virtualcar","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}},"virtualbox":{"/virtualcar":{"guestpath":"/virtualcar","hostpath":"/Users/duraki/dev/virtualcar","disabled":false,"__vagrantfile":true}}}

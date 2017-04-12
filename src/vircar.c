@@ -1,28 +1,32 @@
 /**
- * 
- * @author  	Halis Duraki <halis_duraki@outlook.com>
- * @project 	vircar.c (Virtual car)
- * @package     dn5/vircar@github
- * @website     http://dn5.ljuska.org
  *
- * Vir(tual)Car is real car engine written in C to help newbie 
- * and advanced users learn more about internal ways on how cars 
- * and vehicles communicate over CAN Bus protocol. This project 
- * represents a central unit for CAN, and as such supports the 
- * instructions and commands sent to the ECU and back.
+ *  This file is part of virtualcar.
  *
- * There are several paid examples for this, so I've made vircar
- * for an open-source community. Built on native kernel library 
- * using only Linux SocketCAN drivers/module, vircar will enable 
- * you the usage on almost all up to date kernels (2008 and above 
- * if I recall correctly.
+ *  virtualcar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, version 3 of the License.
  *
- * The official reason why I wrote this is because I wanted to 
- * experiment and learn more about cars and vehicle hacking including
- * but not limited to hardware and CAN protocol. You may as well read
- * a blog post about using, abusing and hacking vircar as an example
- * how similar vircar actually is to the real car.
+ *  virtualcar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
+ *  You should have received a copy of the GNU General Public License
+ *  along with virtualcar.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  virtualcar is a vehicle computer-powered system engine written in C to 
+ *  help you research and learn more about vehicle devices and CAN protocol.
+ *  This project represents a central unit or the CAN Bus, along with several
+ *  different nodes that transmit and analyze signals.
+ *
+ *  The purpose of this code and the project is to replace paid alternatives
+ *  and allow others to learn more about vehicle embedded systems.
+ *
+ *  The project is developed in C and it's based on a SocketCAN which is 
+ *  available in any modern Linux kernel.
+ *
+ *  (c) Halis Duraki <duraki.halis@nsoft.ba>
+ *  
  */
 
 #include <stdio.h>
@@ -40,41 +44,63 @@
 #include <linux/if_ether.h>	
 #include <linux/can.h>		
 
+#include "include/nodes/controller.c"
+
 #include "car.c" // The car requires some functions, right?!
 
-#define  VIRCAR const
+#define   VIRTUALCAR const
+
+unsigned char virtualcar_intro[] = {
+  0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x5f, 0x20, 0x20, 0x20,
+  0x20, 0x20, 0x20, 0x5f, 0x5f, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+  0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x5f, 0x5f, 0x20, 0x20, 0x20,
+  0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+  0x0a, 0x20, 0x5f, 0x20, 0x20, 0x20, 0x5f, 0x5f, 0x28, 0x5f, 0x29, 0x5f,
+  0x5f, 0x5f, 0x5f, 0x2f, 0x20, 0x2f, 0x5f, 0x5f, 0x5f, 0x20, 0x20, 0x5f,
+  0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x20, 0x5f, 0x2f, 0x20, 0x2f, 0x5f, 0x5f,
+  0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f, 0x20, 0x5f, 0x5f, 0x5f, 0x5f, 0x5f,
+  0x5f, 0x0a, 0x7c, 0x20, 0x7c, 0x20, 0x2f, 0x20, 0x2f, 0x20, 0x2f, 0x20,
+  0x5f, 0x5f, 0x5f, 0x2f, 0x20, 0x5f, 0x5f, 0x2f, 0x20, 0x2f, 0x20, 0x2f,
+  0x20, 0x2f, 0x20, 0x5f, 0x5f, 0x20, 0x60, 0x2f, 0x20, 0x2f, 0x20, 0x5f,
+  0x5f, 0x5f, 0x2f, 0x20, 0x5f, 0x5f, 0x20, 0x60, 0x2f, 0x20, 0x5f, 0x5f,
+  0x5f, 0x2f, 0x0a, 0x7c, 0x20, 0x7c, 0x2f, 0x20, 0x2f, 0x20, 0x2f, 0x20,
+  0x2f, 0x20, 0x20, 0x2f, 0x20, 0x2f, 0x5f, 0x2f, 0x20, 0x2f, 0x5f, 0x2f,
+  0x20, 0x2f, 0x20, 0x2f, 0x5f, 0x2f, 0x20, 0x2f, 0x20, 0x2f, 0x20, 0x2f,
+  0x5f, 0x5f, 0x2f, 0x20, 0x2f, 0x5f, 0x2f, 0x20, 0x2f, 0x20, 0x2f, 0x20,
+  0x20, 0x20, 0x20, 0x0a, 0x7c, 0x5f, 0x5f, 0x5f, 0x2f, 0x5f, 0x2f, 0x5f,
+  0x2f, 0x20, 0x20, 0x20, 0x5c, 0x5f, 0x5f, 0x2f, 0x5c, 0x5f, 0x5f, 0x2c,
+  0x5f, 0x2f, 0x5c, 0x5f, 0x5f, 0x2c, 0x5f, 0x2f, 0x5f, 0x2f, 0x5c, 0x5f,
+  0x5f, 0x5f, 0x2f, 0x5c, 0x5f, 0x5f, 0x2c, 0x5f, 0x2f, 0x5f, 0x2f, 0x20,
+  0x20, 0x20, 0x20, 0x20, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+  0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+  0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+  0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+  0x20, 0x20, 0x20, 0x20, 0x20
+};
 
 void print_head()
 {
-    printf("%s", "Welcome to vir(tual) car. A simple, yet flexible\n"
-                 "car engine written in C. This project can help you\n"
-                 "understand how various vehicles and cars communicate\n"
-                 "with CAN Bus and ECU. This project is open-source!\n");
-
-	printf("%s", "===================================================\n");
-	printf("%s", "https://github.com/dn5/vircar\n");
-    printf("%s", "Halis Duraki / @dn5 / <duraki@null.net>\n\n");
+	printf("\n%s\n", virtualcar_intro);
+	printf("%s", "virtualcar is a CAN-based wrapper written in C, that acts as a virtual car.\n");
+	printf("%s", "The core is listening to the virtual CAN device and parse, analyze and transmit\n");
+	printf("%s", "signal from nodes to nodes, or in other way manipulate with the request.\n\n");
+	printf("%s", "This software is licensed under GNU General Public V3 license. The project is\n");
+	printf("%s", "developed on top of SocketCAN module and therefore requires Linux based system.\n");
+	printf("%s", "--\n\n");
+	printf("%s", "https://github.com/dn5/virtualcar\n");
+    printf("%s", "Halis Duraki / @dn5 / <duraki.halis@nsoft.ba>\n\n");
 }
 
+/** Create a virtual CAN device that acts as a vehicle CANBus */
 void create_car() 
 {
-	const char *vircar = "vircar"; /* Use the const in future */
-
-	/**
-	 * Create a car, because no car is bad car.
-	 * Also, who doesn't love cars?!
-	 * 
-	 * Use: $ sudo ip link delete vircar to remove
-	 * your car. You can also send a KILL signal to
-	 * the car and it will remove itself from the 
-	 * protocol.
-	 */
+	const char *virtualcar = "virtualcar"; /* Use the const in future */
 
 	print_head(); // Call info function
 
 	system("modprobe vcan");
-	system("sudo ip link add dev vircar type vcan");
-	system("sudo ip link set up vircar");
+	system("sudo ip link add dev virtualcar type vcan");
+	system("sudo ip link set up virtualcar");
 }
 
 int main(int argc, char *argv[])
@@ -123,14 +149,19 @@ int main(int argc, char *argv[])
 	while (1) {
 
 		if ((size = read(s, &frame, sizeof(struct can_frame))) < 0) {
+			// invalid frame
 			perror("read");
 			return 1;
 		} else if (size < sizeof(struct can_frame)) {
+			// invalid frame
 			fprintf(stderr, "CAN frame is wrong! Are you trying to hack me?!\n");
 			return 1;
 		} else {
 			if (frame.can_id & CAN_EFF_FLAG)
 				printf("%8X  ", frame.can_id & CAN_EFF_MASK); // 8 bytes
+				can_accept_signal(&frame);
+			if (frame.can_id & CAN_RTR_FLAG)
+				can_accept_signal_rtr(&frame);
 			else
 				printf("%3X  ", frame.can_id & CAN_SFF_MASK); // SFF (3)
 	    
