@@ -1,7 +1,17 @@
 #!/usr/bin/env bash
 
-# Install git
+# Install git & wget
 sudo yum -y install git 
+sudo yum -y install wget
+
+# Install figlet
+sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+wget http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus/x86_64/RPMS.classic//figlet-2.2.5-alt1.x86_64.rpm
+sudo rpm -Uvh figlet-2.2.5-alt1.x86_64.rpm
+
+# Add bash startup script
+echo figlet "virtualcar" -f smslant >> /home/vagrant/.bashrc
+
 
 # Install latest Ruby 2.0.0> supported
 sudo yum -y install ruby

@@ -1,3 +1,5 @@
+<div style="text-align:center"><img src="provision/virtualcar-logo.png"/></div>
+
 *Notice*: This project is original version of **vircar**. The change of name occured on 
 12/04/17.
 
