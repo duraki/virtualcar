@@ -1,0 +1,3 @@
+[submodule "virtualcar-web"]
+	path = virtualcar-web
+	url = git@github.com:dn5/virtualcar-web.git
