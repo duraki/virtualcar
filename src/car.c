@@ -31,7 +31,7 @@
 
 int car_kill() {				/* KILL */
 	car_do_something("ka-boom, pfw, aaa, ts\n");
-	system("sudo ip link delete vircar");
+	system("sudo ip link delete virtualcar");
 	car_do_something("*car exploded*\n");
 	/* I'll be back ... */
 
