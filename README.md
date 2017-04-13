@@ -33,6 +33,32 @@ These are: **ENON** (Engine on), **ENOF** (Engine off), **LOCK** (Lock doors),
 you may want to implement other functions in the car, so be free to tune it however you like it. 
 Also, if you've made a NOS or something cool make a pull request, I would be glad to 
 see contributors to the project.  
+
+## virtualcar-web
+I'm sorry, the virtualcar-web is being developed and there is some kind of version floating 
+as a private repository and a submodule in this repo. Anyway, virtualcar-web should be 
+used as web-interface to manipulate with virtualcar daemon. It's written in Rails and 
+support some interesting things but more about that inside [virtualcar-web](https://github.com/dn5/virtualcar-web) 
+repository and README file.
+
+```
+$ git submodule init
+Submodule 'virtualcar-web' (...) registered for path 'virtualcar-web'
+
+$ git submodule update
+Cloning into 'virtualcar-web'...
+...
+```
+  
+To update or fetch the `virtualcar-web` project:
+  
+```
+$ cd virtualcar/virtualcar-web
+$ git fetch
+...
+
+$ git merge origin/master
+``` 
   
 ## requirements
 I love to write pure native scripts. The only requirement for now is that you are running 
