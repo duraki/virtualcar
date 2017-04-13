@@ -1,7 +1,7 @@
-PROJECT_NAME=vircar
+PROJECT_NAME=virtualcar
 CC=gcc
 
-SOURCES = src/vircar.c 
+SOURCES = src/virtualcar.c 
 
 all:
 	$(CC) $(SOURCES) -o $(PROJECT_NAME)
