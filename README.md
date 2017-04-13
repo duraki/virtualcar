@@ -23,18 +23,29 @@ on a vehicle systems and [another one](http://dn5.ljuska.org/cyber-attacks-on-ve
 that show **virtualcar** in action, and didn't have necessary (hardware) equipment to test 
 the techniques, so I wrote this to let myself experiment a bit.   
   
-So a few months passed, and I talked about this little code on a BalCCon 2k17 where I 
+So a few months passed, and I talked about this little code on a BalCCon 2k16 where I 
 offered a small introduction to these cyber-attacks, plus you could buy me a drink and 
 I'd tell you some secrets. So I renamed this project and I'll try to develop some nodes 
 as per request in Issues board. Meanwhile, I'd appreciate pull requests that make sense.
    
 ## functionality
-Currently, **virtualcar** offers several operations that are registered and reserved on CAN. 
-These are: **ENON** (Engine on), **ENOF** (Engine off), **LOCK** (Lock doors), 
-**DOCK** (Unlock doors), and **KILL** (destroy the car, remove virtual bus). As I said, 
-you may want to implement other functions in the car, so be free to tune it however you like it. 
-Also, if you've made a NOS or something cool make a pull request, I would be glad to 
-see contributors to the project.  
+Currently, **virtualcar** offers several different controllers or nodes that understand a 
+particular signal and either accept or reject the CAN frame. I'm implementing both data 
+frames and RTR. The RTR has some basic functions like asking for value of an instrument.
+  
+**virtualcar** nodes:
+* `NODE_SIGNAL_DOOR_MODE` - Door actions
+* `NODE_SIGNAL_EHPS_MODE` - EHPS actions
+  
+**TODO** nodes (*@see* `nodes.h`):  
+* `NODE_SIGNAL_INST_MODE`
+* `NODE_SIGNAL_ENGN_MODE`
+* `NODE_SIGNAL_MABS_MODE` 
+* `NODE_SIGNAL_MESP_MODE`
+* `NODE_SIGNAL_AIRB_MODE`
+* `NODE_SIGNAL_NAVG_MODE` 
+* `NODE_SIGNAL_TRNC_MODE`
+  
 
 ## virtualcar-web
 I'm sorry, the virtualcar-web is being developed and there is some kind of version floating 

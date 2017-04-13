@@ -105,21 +105,22 @@ void create_car()
 
 int main(int argc, char *argv[])
 {
-	// Debug no args: printf("%d", argc);
 
 	int 	s;							/* socket */
 	struct 	can_frame frame;			/* frame  */
 	int 	size, i;					/* data size */
 	static 	struct ifreq ifr;			/* ifr as an instance*/
 	static 	struct sockaddr_ll sl;		/* prefs */	
-	char 	*instance = "vircar";		/* our virtual device */			
+	char 	*instance = "virtualcar";	/* our virtual device */			
 	int 	ifindex;					/* car socket # */											
 	char 	current[8];					/* current operation received */
 
-	if (argv[1] && strcmp(argv[1], "k") == 0) { /* kill using k argument */
+	if (argv[1] && strcmp(argv[1], "k") == 0) { 
+		/* kill using k argument */
 		car_kill();
 	}
 
+	/** Bring up main controller and gateway */
 	create_car();
 
 	s = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_CAN));
@@ -161,12 +162,13 @@ int main(int argc, char *argv[])
 				printf("%8X  ", frame.can_id & CAN_EFF_MASK); // 8 bytes
 				can_accept_signal(&frame);
 			if (frame.can_id & CAN_RTR_FLAG)
+				printf("%8X  ", frame.can_id & CAN_EFF_MASK); // 8 bytes
 				can_accept_signal_rtr(&frame);
-			else
-				printf("%3X  ", frame.can_id & CAN_SFF_MASK); // SFF (3)
+
+			printf("%3X  ", frame.can_id & CAN_SFF_MASK); // SFF (3)
 	    
 			printf("[%d] ", frame.can_dlc);
-			printf("[%s] ", frame.data);
+			printf("[%8X] ", frame.can_id);
 			strcpy(current, frame.data);
 			
 			int len;
@@ -174,27 +176,10 @@ int main(int argc, char *argv[])
 					
 			printf("%zu", strlen(current)); 				/* Size of the data */
 
-			// aka car_do_something();
-			if (strcmp(current, "ENON") == 0) {
-				car_start_engine();
-			} else if (strcmp(current, "ENOF") == 0) {
-				car_stop_engine();
-			} else if (strcmp(current, "LOCK") == 0) {
-				car_lock_doors();
-			} else if (strcmp(current, "DOCK") == 0) {
-				car_unlock_doors();
-			} else if (strcmp(current, "KILL") == 0) {
-				car_kill(); /* no you didn't */
-			}
-
-
 			for (i = 0; i < frame.can_dlc; i++) {
-				// printf("%02X ", frame.data[i]); 		/* Print frame data */
+				printf("%02X ", frame.data[i]); 		/* Print frame data */
 			}
 
-			if (frame.can_id & CAN_RTR_FLAG)
-				printf("Request error, check your privs. Do you have a driving license?");
-			printf("\n");
 			fflush(stdout);
 		}
 	}

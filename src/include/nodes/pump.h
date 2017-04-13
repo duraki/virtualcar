@@ -29,59 +29,22 @@
  *  
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <net/if.h>
-#include <netinet/in.h>
-
-#include <linux/if_packet.h>
-#include <linux/if_ether.h>
-#include <linux/can.h>
-
-#include "../logger.h"
-
-#include "nodes.h"
-
-/** nodes header */
-#include "door.h"
- 
-struct can_frame *current;
-
-void can_accept_signal(struct can_frame *frame)
+void node_ehps_mode()
 {
-	uint8_t i;
-	Log("New frame recieved ...");
-
-	if (frame->can_id == NODE_SIGNAL_DOOR_MODE) 
-		node_door_mode();	
-
-	if (frame->can_id == NODE_SIGNAL_DOOR_UNLC)
-		node_door_unlock();
-
-	if (frame->can_id == NODE_SIGNAL_DOOR_LOCK)
-		node_door_lock();
-
-	if (frame->can_id == NODE_SIGNAL_DOOR_WNDW)
-		node_door_mirror();
-
-	if (frame->can_id == NODE_SIGNAL_DOOR_MIRR)
-		node_door_mirror();
-
-	if (frame->can_id == NODE_SIGNAL_EHPS_MODE)
-		node_ehps_mode();
-
-	printf("\n");
+	Log("EHPS mode detected ...");
 }
 
-void can_accept_signal_rtr(struct can_frame *frame)
+void node_ehps_flow()
 {
-	Log("New RTR frame recieved ...");
+	Log("EHPS flow detected ...");
+}
 
+void node_ehps_capacity()
+{
+	Log("EHPS capacity detected ...");
+}
 
+void node_ehps_regulator()
+{
+	Log("EHPS regulator detected ...");
 }

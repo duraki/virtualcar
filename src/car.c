@@ -29,46 +29,11 @@
  *  
  */
 
-#define  ENON = "454E4F4E" 		/* Start a car engine 	*/
-#define  ENOF = "454E4F46"		/* Stop the car engine 	*/
-#define  LOCK = "4C4F434B"		/* Lock the doors 		*/
-#define  DOCK = "444F434B"		/* Unlock the doors 	*/
- 
-#define  KILL = "4B494C4C"		/* Don't do this, the car will explode */
-
-int car_do_something(char *what) {
-	printf(" %s", what);
-}
-
-int car_start_engine() { 		/* ENON */
-	car_do_something("vircar engine is turned on.");
-
-	return 1;
-}
-
-int car_stop_engine() { 		/* ENOF */
-	car_do_something("vircar engine is turned off.");
-
-	return 1;
-}
-
-int car_lock_doors() { 			/* LOCK */
-	car_do_something("vircar doors are locked.");
-
-	return 1;
-}
-
-int car_unlock_doors() { 		/* DOCK */
-	car_do_something("vircar ulocked the doors.");
-
-	return 1;
-}
-
 int car_kill() {				/* KILL */
 	car_do_something("ka-boom, pfw, aaa, ts\n");
+	system("sudo ip link delete vircar");
 	car_do_something("*car exploded*\n");
 	/* I'll be back ... */
 
-	system("sudo ip link delete vircar");
 	exit(1);
 }
