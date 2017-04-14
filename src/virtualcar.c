@@ -33,6 +33,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <pthread.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -47,8 +48,6 @@
 #include "include/nodes/controller.c"
 
 #include "car.c" // The car requires some functions, right?!
-
-#define   VIRTUALCAR const
 
 unsigned char virtualcar_intro[] = {
   0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x5f, 0x20, 0x20, 0x20,
@@ -77,6 +76,8 @@ unsigned char virtualcar_intro[] = {
   0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
   0x20, 0x20, 0x20, 0x20, 0x20
 };
+
+pthread_t ntpump;
 
 void print_head()
 {
@@ -114,6 +115,7 @@ int main(int argc, char *argv[])
 	char 	*instance = "virtualcar";	/* our virtual device */			
 	int 	ifindex;					/* car socket # */											
 	char 	current[8];					/* current operation received */
+	int 	tid;						/* thread id */
 
 	if (argv[1] && strcmp(argv[1], "k") == 0) { 
 		/* kill using k argument */
@@ -122,6 +124,14 @@ int main(int argc, char *argv[])
 
 	/** Bring up main controller and gateway */
 	create_car();
+
+	/** Check thread */
+	tid = pthread_create(&(ntpump), NULL, &check_pump_flow, NULL);
+
+	if (tid != 0)
+		printf("\ncan't create thread :[%s]", strerror(tid));
+	else
+		printf("\nThread created successfully\n");
 
 	s = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_CAN));
 	if (s < 0) {

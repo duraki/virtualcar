@@ -50,8 +50,14 @@
 
 /** nodes header */
 #include "door.h"
+#include "pump.h"
  
 struct can_frame *current;
+
+void can_send_signal(struct can_frame *frame)
+{
+	
+}
 
 void can_accept_signal(struct can_frame *frame)
 {

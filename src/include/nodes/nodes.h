@@ -30,7 +30,7 @@
  */
 
 /**
- * 
+ * Definition of controllers and signals
  */
 
 /** special address description for door node */
