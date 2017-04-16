@@ -47,7 +47,8 @@
 
 #include "include/nodes/controller.c"
 
-#include "car.c" // The car requires some functions, right?!
+#include "car.c"
+#include "bus.c"
 
 unsigned char virtualcar_intro[] = {
   0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x5f, 0x20, 0x20, 0x20,
@@ -184,7 +185,7 @@ int main(int argc, char *argv[])
 			int len;
 			len = frame.can_dlc;
 					
-			printf("%zu", strlen(current)); 				/* Size of the data */
+			printf("%zu", strlen(current)); 	        /* Size of the data */
 
 			for (i = 0; i < frame.can_dlc; i++) {
 				printf("%02X ", frame.data[i]); 		/* Print frame data */
