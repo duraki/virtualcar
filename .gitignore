@@ -7,3 +7,6 @@ virtualcar
 virtualcar.log
 .DS_Store
 .custom
+.idea/
+CMakeLists.txt
+cmake-build-*/
