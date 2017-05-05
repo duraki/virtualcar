@@ -41,7 +41,7 @@
 
 #include "include/lib.h"
 
-int send_can_frame(char *sframe)
+int send_can_frame(char* sframe)
 {
     int s; /* can socket */
     struct ifreq ifr;
@@ -56,9 +56,9 @@ int send_can_frame(char *sframe)
     
     memset(&ifr, 0, sizeof(struct ifreq));
     strncpy(ifr.ifr_name, "virtualcar", IFNAMSIZ - 1);
-    ifr.ifr_name[IFNAMSIZ-1[ = '\0';
+    ifr.ifr_name[IFNAMSIZ-1] = '\0';
     ifr.ifr_ifindex = if_nametoindex(ifr.ifr_name);
-    if (ioctl(sock, SIOCGIFINDEX, &ifr) < 0)
+    if (ioctl(s, SIOCGIFINDEX, &ifr) < 0)
         perror("SIOCGIFINDEX");
 
 }
