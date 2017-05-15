@@ -82,14 +82,14 @@ pthread_t ntpump;
 
 void print_head() {
     printf("%s\n%s%s\n", BOLDBLUE, virtualcar_intro, RESET);
-    printf("%s", "virtualcar is a CAN-based wrapper written in C, that acts as a virtual car.\n");
+    printf("%s%s%s%s", BOLDBLUE, "virtualcar", RESET," is a CAN-based wrapper written in C, that acts as a virtual car.\n");
     printf("%s", "The core is listening to the virtual CAN device and parse, analyze and transmit\n");
     printf("%s", "signal from nodes to nodes, or in other way manipulate with the request.\n\n");
     printf("%s", "This software is licensed under GNU General Public V3 license. The project is\n");
     printf("%s", "developed on top of SocketCAN module and therefore requires Linux based system.\n");
     printf("%s", "--\n\n");
     printf("%s", "https://github.com/dn5/virtualcar\n");
-    printlog(GREEN, "Halis Duraki / @dn5 / <duraki.halis@nsoft.ba>\n\n");
+    printlog(RED, "Halis Duraki / @dn5 / <duraki.halis@nsoft.ba>\n\n");
 }
 
 /** Create a virtual CAN device that acts as a vehicle CANBus */
@@ -105,19 +105,21 @@ void create_car() {
 
 int main(int argc, char *argv[]) {
 
-    int s;                            /* socket */
-    struct can_frame frame;            /* frame  */
-    int size, i;                    /* data size */
+    int s;                              /* socket */
+    struct can_frame frame;             /* frame  */
+    int size, i;                        /* data size */
     static struct ifreq ifr;            /* ifr as an instance*/
-    static struct sockaddr_ll sl;        /* prefs */
-    char *instance = "virtualcar";    /* our virtual device */
-    int ifindex;                    /* car socket # */
+    static struct sockaddr_ll sl;       /* prefs */
+    char *instance = "virtualcar";      /* our virtual device */
+    int ifindex;                        /* car socket # */
     char current[8];                    /* current operation received */
-    int tid;                        /* thread id */
+    int tid;                            /* thread id */
 
     if (argv[1] && strcmp(argv[1], "k") == 0) {
         /* kill using k argument */
         car_kill();
+
+        return 0; 
     }
 
     /** Bring up main controller and gateway */
