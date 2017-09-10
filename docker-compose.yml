@@ -1,0 +1,10 @@
+version: '3'
+services:
+  virtualcar:
+    build: .
+    container_name: virtualcar
+    tty: true
+    cap_add:
+        - ALL
+    volumes:
+        - "./:/opt/virtualcar:delegated"
