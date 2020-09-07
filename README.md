@@ -13,13 +13,13 @@ open source and contribute to the project if you want.
   
 The project is developed on top of SocketCAN module and therefore requires Linux based 
 system. I am currently rewriting the SocketCAN module for MacOS and you may fork the 
-repository from [dn5/socketcanx](https://github.com/dn5/socketcanx).
+repository from [duraki/socketcanx](https://github.com/duraki/socketcanx).
   
 ## a car? really?
 Yes! A fully, functional car.  
 Well, not really no. It does represent a car/vehicle but in a limited spirit and form. I was 
-writing a post about [cyber-attacks](http://dn5.ljuska.org/napadi-na-auto-sistem-1.html) 
-on a vehicle systems and [another one](http://dn5.ljuska.org/cyber-attacks-on-vehicles-2.html) 
+writing a post about [cyber-attacks](https://duraki.github.io/posts/o/20160326-napadi-na-auto-sistem-1.html) 
+on a vehicle systems and [another one](https://duraki.github.io/posts/o/20160327-cyber-attacks-on-vehicles-2.html) 
 that show **virtualcar** in action, and didn't have necessary (hardware) equipment to test 
 the techniques, so I wrote this to let myself experiment a bit.   
   
@@ -51,7 +51,7 @@ frames and RTR. The RTR has some basic functions like asking for value of an ins
 I'm sorry, the virtualcar-web is being developed and there is some kind of version floating 
 as a private repository and a submodule in this repo. Anyway, virtualcar-web should be 
 used as web-interface to manipulate with virtualcar daemon. It's written in Rails and 
-support some interesting things but more about that inside [virtualcar-web](https://github.com/dn5/virtualcar-web) 
+support some interesting things but more about that inside [virtualcar-web](https://github.com/duraki/virtualcar-web) 
 repository and README file.
 
 ```
@@ -85,7 +85,7 @@ under **GNU Linux** and have **can-utils** installed on your system.
 
 To clone the repo and compile it from source: 
 
-	$ git clone https://github.com/dn5/virtualcar.git
+	$ git clone https://github.com/duraki/virtualcar.git
 	$ cd virtualcar 
 	$ make
 	$ chmod 777 virtualcar 
@@ -96,7 +96,7 @@ To run **virtualcar** use sudo (entirely for CAN bus device linking)
 	Welcome to vir(tual) car.
 	~
 	=========================================
-	https://github.com/dn5/virtualcar
+	https://github.com/duraki/virtualcar
 
 	# waiting for operation
 
@@ -108,7 +108,7 @@ To **kill** a car and remove protocol use:
 	*car exploded*
 
 ## outro
-If you are interested in car hacking, write me on [twitter](https://twitter.com/dn5__). 
+If you are interested in car hacking, write me on [twitter](https://twitter.com/0xduraki). 
 Any additional options and CAN nodes should be accepted if they follow RTR or Accept/Desctruct
 operation. Please, keep the code and project with clean lines of code. 
   
